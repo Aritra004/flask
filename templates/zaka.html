@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/zaka.css">
+</head>
+
+<body>
+    <form class="main" method="post" action="/upload" enctype="multipart/form-data">
+        <div class="title">
+            <h2>Improve your diagnosis with specialized AI algorithms </h2>
+            <br><br>
+            <div class="teno">
+                <div class="upload">
+                    <label for="myfile">
+                        <img src="../static/upload.png" alt=""> <br><br>Upload
+                    </label><br>
+                    <input type="file" id="myfile" name="myfile" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="select">
+                    <img src="../static/select.png" alt=""> <br>
+                    <select name="option" id="inputt">
+                        <option value="cancer">Cancer</option>
+                        <option value="tumor">Tumor</option>
+                    </select>
+                    <br><br>
+                    The algorithm of interest
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="btns">
+            <button id="next" type="submit">Next</button>
+        </div>
+
+
+
+    </form>
+    
+
+</body>
+
+<script>
+
+    document.querySelector("#next").addEventListener("click", function (e) {
+        const myfile = document.getElementById("myfile").value;
+        if (myfile == "") {
+            e.preventDefault();
+            alert("Please select a file");
+        } else {
+            // window.location.href = "/predict";
+        }
+    });
+</script>
+
+</html>

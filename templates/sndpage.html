@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="zaka.css">
+</head>
+
+<body>
+    <div class="main">
+        <div class="title">
+            <h2>Improve your diagnosis with specialized AI algorithms </h2>
+        </div>
+
+        <form id="myform">
+
+            <input type="hidden" name="option" id="option" value="{{option}}">
+            <input type="hidden" name="image_name" id="image_name" value="{{image}}">
+            <label>
+                <input type="radio" name="process" value="classification"> Classification
+            </label>
+            <label>
+                <input type="radio" name="process" value="segmentation"> Segmentation
+            </label>
+            <button id="processButton">Process</button>
+        </form>
+</body>
+
+
+<script>
+    const processButton = document.getElementById('processButton');
+
+    processButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        var data = new FormData(document.getElementById("myform"));
+        var process = data.get("process");
+        var image_name = data.get("image_name");
+        var option = data.get("option");
+        console.log(process);
+
+        if (option == "cancer") {
+            //  cancer
+            if (image_name == "") {
+                alert("Please select an image");
+                window.location.href("/");
+
+            } else {
+                if (process == "segmentation") {
+                    window.location.href = "/segmentor/" + image_name;
+                } else if (process == "classification") {
+                    window.location.href = "/classifier/" + image_name;
+                } else {
+                    alert("Please Select a process");
+                }
+            }
+
+
+        } else if (option == "tumor") {
+            // tumor
+
+            if (image_name == "") {
+                alert("Please select an image");
+                window.location.href("/");
+
+            } else {
+                if (process == "segmentation") {
+
+                } else if (process == "classification") {
+                    window.location.href = "/tumor-classifier/" + image_name;
+                } else {
+                    alert("Please Select a process");
+                }
+            }
+
+        } else {
+            window.location.href("/");
+        }
+
+
+
+    });
+</script>
+
+</html>
