@@ -1,0 +1,44 @@
+import cv2
+import numpy as np
+import tensorflow as tf
+from tensorflow.keras.models import load_model
+
+def classify_tumor(image_path, classification_model_path, segmentation_model_path):
+    # Load classification model
+    classification_model = load_model(classification_model_path)
+    
+    # Load segmentation model
+    segmentation_model = load_model(segmentation_model_path, custom_objects={'bce_dice_loss': bce_dice_loss})
+    
+    # Load and preprocess the image
+    image = cv2.imread(image_path)
+    image = cv2.resize(image, (256, 256))  # Resize to match segmentation model input size
+    image = image / 255.0  # Normalize pixel values
+    
+    # Perform classification
+    classification_result = classification_model.predict(np.expand_dims(image, axis=0))
+    
+    if classification_result[0][0] > 0.5:  # Assuming class 0 represents "tumor present"
+        # Perform segmentation
+        segmentation_result = segmentation_model.predict(np.expand_dims(image, axis=0))
+        segmented_mask = (segmentation_result[0] > 0.5).astype(np.uint8)
+        
+        return "Tumor present", segmented_mask
+    else:
+        return "No tumor detected", None
+
+# Define paths to your classification and segmentation model files
+classification_model_path = 'path/to/classification/model.h5'
+segmentation_model_path = 'path/to/segmentation/model.h5'
+
+# Define the path to the image you want to classify and segment
+image_path = 'path/to/input/image.jpg'
+
+# Call the function to perform classification and segmentation
+result, segmented_mask = classify_tumor(image_path, classification_model_path, segmentation_model_path)
+
+print(result)
+if segmented_mask is not None:
+    cv2.imshow("Segmented Mask", segmented_mask * 255)  # Display the segmented tumor region
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
