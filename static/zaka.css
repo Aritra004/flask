@@ -1,0 +1,60 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+.main{
+    width: 99%;
+    height: 80vh;
+    border: 2px solid green;
+    
+}
+.title{
+    margin-top: 30px;
+    text-align: center;
+}
+p{
+    text-align: center;
+    padding-left: 40px;
+    padding-right: 50px;
+}
+.teno{
+    display:flex;
+    justify-content: space-evenly;
+
+}
+.select img{
+    height: 105px;
+}
+.receive{
+    margin-top: 10px;
+}
+.receive img{
+    height: 87px;
+}
+@media only screen and (max-width: 550px){
+
+    .teno{
+        display: inline-table;
+    }
+}
+
+
+.btns{
+    margin-top: 70px;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.btns button{
+    padding: 8px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: orangered;
+    border: 1px solid orangered;
+    border-radius: 3px;
+    text-transform: capitalize;
+}
